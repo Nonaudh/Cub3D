@@ -1,6 +1,12 @@
 #ifndef ARNAUD_H
 # define ARNAUD_H
 
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
+
+#include <X11/X.h>
+#include <X11/keysym.h>
+
 typedef struct s_img
 {
 	void	*img;
@@ -16,14 +22,19 @@ typedef struct s_player
 	int	pos_y;
 }	t_player;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*mlx_window;
+}	t_mlx;
+
 typedef struct s_cub
 {
-	void		*mlx;
-	void		*mlx_windows;
+	t_mlx		mlx;
 	t_img		img;
 	t_player	player;
 }	t_cub;
 
-void	create_image(void *mlx, void *mlx_windows);
+//void	create_image(void *mlx, void *mlx_windows);
 
 #endif

@@ -1,6 +1,5 @@
 *.a
 *.o
 *.swp
-test*
 .DS_store/
 .vscode
