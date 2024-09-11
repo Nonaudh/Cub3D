@@ -12,7 +12,7 @@
 
 CC = cc
 
-CFLAGS = -Werror -Wextra -Wall -g
+CFLAGS = -g #-Werror -Wextra -Wall -g
 
 INCLUDE = -Iinclude -Ilib -Imlx
 
@@ -28,7 +28,7 @@ DMLX = mlx/
 
 MLX = $(DMLX)libmlx.a
 
-SRC = $(DSRC)main.c
+SRC = $(DSRC)main.c $(DSRC)arnaud.c
 
 NAME = cube
 

@@ -18,13 +18,14 @@ void	open_window_mlx(void)
 	void	*mlx_window;
 
 	mlx = mlx_init();
-	mlx_window = mlx_new_window(mlx, 800, 600, "Test MLX");
+	mlx_window = mlx_new_window(mlx, 800, 600, "Cub3D");
+	create_image(mlx, mlx_window);
 	mlx_loop(mlx);
 }
 
 int	main(void)
 {
-	ft_putstr_fd("Salut ca compile test libft\n", 1);
+	//ft_putstr_fd("Salut ca compile test libft\n", 1);
 	open_window_mlx();
 	return (0);
 }
