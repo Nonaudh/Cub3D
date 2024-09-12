@@ -61,10 +61,10 @@ void	make_a_white_square(t_img *img, t_map *map, int x, int i)
 	int	y;
 	int	z;
 
-	y = 0;
+	y = 1;
 	while (y < map->square_lenght - 1)
 	{
-		z = 0;
+		z = 1;
 		while (z < map->square_lenght - 1)
 		{
 			my_mlx_pixel_put(img, (i * map->square_lenght) + z, (x * map->square_lenght) + y, 0x00000000);
@@ -78,10 +78,10 @@ void	make_a_black_square(t_img *img, t_map *map, int x, int i)
 	int	y;
 	int	z;
 
-	y = 0;
+	y = 1;
 	while (y < map->square_lenght - 1)
 	{
-		z = 0;
+		z = 1;
 		while (z < map->square_lenght - 1)
 		{
 			my_mlx_pixel_put(img, (i * map->square_lenght) + z, (x * map->square_lenght) + y, 0x00FFFFFF);
