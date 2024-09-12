@@ -4,8 +4,9 @@
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
 
-#include <X11/X.h>
-#include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <stdlib.h>
 
 typedef struct s_img
 {
@@ -28,11 +29,20 @@ typedef struct s_mlx
 	void	*mlx_window;
 }	t_mlx;
 
+typedef struct s_map
+{
+	int		**map;
+	int		map_width;
+	int		map_height;
+	int		square_lenght;
+}	t_map;
+
 typedef struct s_cub
 {
 	t_mlx		mlx;
 	t_img		img;
 	t_player	player;
+	t_map		map;
 }	t_cub;
 
 //void	create_image(void *mlx, void *mlx_windows);

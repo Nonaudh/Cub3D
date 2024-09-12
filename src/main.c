@@ -56,11 +56,75 @@ void	draw_player(t_img *img, int x, int y)
 	}
 }
 
+void	make_a_white_square(t_img *img, t_map *map, int x, int i)
+{
+	int	y;
+	int	z;
+
+	y = 0;
+	while (y < map->square_lenght - 1)
+	{
+		z = 0;
+		while (z < map->square_lenght - 1)
+		{
+			my_mlx_pixel_put(img, (i * map->square_lenght) + z, (x * map->square_lenght) + y, 0x00000000);
+			z++;
+		}
+		y++;
+	}
+}
+void	make_a_black_square(t_img *img, t_map *map, int x, int i)
+{
+	int	y;
+	int	z;
+
+	y = 0;
+	while (y < map->square_lenght - 1)
+	{
+		z = 0;
+		while (z < map->square_lenght - 1)
+		{
+			my_mlx_pixel_put(img, (i * map->square_lenght) + z, (x * map->square_lenght) + y, 0x00FFFFFF);
+			z++;
+		}
+		y++;
+	}
+}
+
+void	color_square(t_img *img, t_map *map, int x, int i)
+{
+	if (map->map[x][i] == 1)
+		make_a_white_square(img, map, x, i);
+	if (map->map[x][i] == 0)
+		make_a_black_square(img, map, x, i);
+}
+
+void	draw_map(t_img *img, t_map *map)
+{
+	int	i;
+	int	x;
+
+	x = 0;
+	while (x < map->map_height)
+	{
+		i = 0;
+		while (i < map->map_width)
+		{
+			color_square(img, map, x, i);
+			i++;
+		}
+		x++;
+	}
+}
+
 int	draw_image(t_cub *c)
 {
 	if (!c->mlx.mlx_window)
 		return (0);
 	set_screen_to_grey(&c->img);
+
+	draw_map(&c->img, &c->map);
+
 	draw_player(&c->img, c->player.pos_x, c->player.pos_y);
 
 	mlx_put_image_to_window(c->mlx.mlx, c->mlx.mlx_window, c->img.img, 0, 0);
@@ -104,9 +168,98 @@ void	default_set_struct(t_cub *c)
 	c->player.pos_y = 100;
 }
 
+int	copy_map_into_struct(int map[10][10], t_map *m)
+{
+	int	i;
+	int	x;
+
+	x = 0;
+	m->map = malloc(sizeof(int *) * m->map_height);
+	while (x < m->map_height)
+	{
+		i = 0;
+		m->map[x] = malloc(sizeof(int) * m->map_width);
+		while (i < m->map_width)
+		{
+			m->map[x][i]= map[x][i];
+			i++;
+		}
+		x++;
+	}
+	return (0);
+}
+
+void	print_map_struct(t_map *m) ///////
+{
+	int	i = 0;
+	int	j;
+
+	while (i < m->map_height)
+	{
+		j = 0;
+		while (j < m->map_width)
+		{
+			ft_printf("%d ", m->map[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+}
+
+int	define_square_lenght(t_map *map)
+{
+	int	widht_lenght;
+	int	height_lenght;
+
+	widht_lenght = WINDOW_WIDTH / map->map_width;
+	height_lenght = WINDOW_HEIGHT / map->map_height;
+
+	if (widht_lenght < height_lenght)
+		return (widht_lenght);
+	return (height_lenght);
+}
+
+int	set_struct_map(t_cub *c)
+{
+	int map[10][10] ={	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+						{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+						{1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
+						{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+						{1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
+						{1, 0, 0, 1, 1, 0, 1, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+						{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+	c->map.map_width = 10;
+	c->map.map_height = 10;
+	c->map.square_lenght = define_square_lenght(&c->map);
+	copy_map_into_struct(map, &c->map);
+
+	// print_map_struct(&c->map);
+
+	return (0);
+}
+
+void	free_the_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->map_height)
+	{
+		free(map->map[i]);
+		i++;
+	}
+	free(map->map);
+}
+
 void	open_window_mlx(t_cub *c)
 {
 	default_set_struct(c);
+
+	set_struct_map(c);
 
 	c->mlx.mlx = mlx_init();
 	c->mlx.mlx_window = mlx_new_window(c->mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
@@ -116,7 +269,7 @@ void	open_window_mlx(t_cub *c)
 
 	looping(c);
 
-	//mlx_destroy_window(c->mlx.mlx, c->mlx.mlx_window);
+	free_the_map(&c->map);
 	mlx_destroy_display(c->mlx.mlx);
 	free(c->mlx.mlx);
 }
