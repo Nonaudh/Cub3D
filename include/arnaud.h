@@ -3,10 +3,12 @@
 
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
+# define PI 3.1415926535
 
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdlib.h>
+# include <math.h>
 
 typedef struct s_img
 {
@@ -19,8 +21,11 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int	pos_x;
-	int	pos_y;
+	int	p_pos_x;
+	int	p_pos_y;
+	int p_delta_x;
+	int p_delta_y;
+	float	p_angle;
 }	t_player;
 
 typedef struct s_mlx
@@ -45,6 +50,10 @@ typedef struct s_cub
 	t_map		map;
 }	t_cub;
 
-//void	create_image(void *mlx, void *mlx_windows);
+void	draw_map(t_img *img, t_map *map);
+void	set_screen_to_grey(t_img* img);
+void	draw_player(t_img *img, int x, int y);
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

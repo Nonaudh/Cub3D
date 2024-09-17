@@ -28,7 +28,7 @@ DMLX = mlx/
 
 MLX = $(DMLX)libmlx.a
 
-SRC = $(DSRC)main.c #$(DSRC)arnaud.c
+SRC = $(DSRC)main.c $(DSRC)tmp.c
 
 NAME = cube
 
