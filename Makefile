@@ -59,4 +59,10 @@ fclean : clean
 
 re : fclean $(NAME)
 
+no :
+	rm -rf $(NAME)
+	rm -rf $(OBJ)
+	make all
+
+
 .PHONY: all clean fclean re

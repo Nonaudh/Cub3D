@@ -21,11 +21,11 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int	p_pos_x;
-	int	p_pos_y;
-	int p_delta_x;
-	int p_delta_y;
-	float	p_angle;
+	int	p_x;
+	int	p_y;
+	float dir_angle;
+	//float v_dir[2];
+
 }	t_player;
 
 typedef struct s_mlx
@@ -53,6 +53,7 @@ typedef struct s_cub
 void	draw_map(t_img *img, t_map *map);
 void	set_screen_to_grey(t_img* img);
 void	draw_player(t_img *img, int x, int y);
+void	draw_vector_dir(t_img *img, t_player *p);
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 

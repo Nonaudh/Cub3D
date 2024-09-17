@@ -29,7 +29,9 @@ int	draw_image(t_cub *c)
 
 	draw_map(&c->img, &c->map);
 
-	draw_player(&c->img, c->player.p_pos_x, c->player.p_pos_y);
+	draw_player(&c->img, c->player.p_x, c->player.p_y);
+
+	draw_vector_dir(&c->img, &c->player);
 
 	mlx_put_image_to_window(c->mlx.mlx, c->mlx.mlx_window, c->img.img, 0, 0);
 
@@ -44,23 +46,26 @@ int	handle_keypress(int keysym, t_cub *c)
 		mlx_destroy_window(c->mlx.mlx, c->mlx.mlx_window);
 		c->mlx.mlx_window = NULL;
 	}
-	if (keysym == XK_w && c->player.p_pos_y >= 0 + 5)
-		c->player.p_pos_y -= 5;
-	if (keysym == XK_s && c->player.p_pos_y <= WINDOW_HEIGHT - 5)
-		c->player.p_pos_y += 5;
-	if (keysym == XK_a && c->player.p_pos_x >= 0 + 5)
-		c->player.p_pos_x -= 5;
-	if (keysym == XK_d && c->player.p_pos_x <= WINDOW_WIDTH - 5)
-		c->player.p_pos_x += 5;
+	if (keysym == XK_w && c->player.p_y > 0 + 5)
+		c->player.p_y -= 5;
+	if (keysym == XK_s && c->player.p_y <= WINDOW_HEIGHT - 5)
+		c->player.p_y += 5;
+	if (keysym == XK_a && c->player.p_x >= 0 + 5)
+		c->player.p_x -= 5;
+	if (keysym == XK_d && c->player.p_x <= WINDOW_WIDTH - 5)
+		c->player.p_x += 5;
 	if (keysym == XK_Right)
 	{
-		c->player.p_angle -= 0.1;
-		if (c->player.p_angle < 0)
-			c->player.p_angle -= 2 * PI;
-		c->player.p_delta_x = cos(c->player.p_angle) * 5;
-		c->player.p_delta_y = sin(c->player.p_angle) * 5;
+		c->player.dir_angle += 0.1;
+		if (c->player.dir_angle > 2 * PI)
+			c->player.dir_angle = 0;
 	}
-	
+	if (keysym == XK_Left)
+	{
+		c->player.dir_angle -= 0.1;
+		if (c->player.dir_angle < 0)
+			c->player.dir_angle = 2 * PI;
+	}
 	return (0);
 }
 
@@ -76,8 +81,9 @@ void	default_set_struct(t_cub *c)
 	c->mlx.mlx = NULL;
 	c->mlx.mlx_window = NULL;
 	c->img.img = NULL;
-	c->player.p_pos_x = 100;
-	c->player.p_pos_y = 100;
+	c->player.p_x = 100;
+	c->player.p_y = 100;
+	c->player.dir_angle = 2 * PI;
 }
 
 int	copy_map_into_struct(int map[10][10], t_map *m)

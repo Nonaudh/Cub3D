@@ -23,16 +23,45 @@ void	draw_player(t_img *img, int x, int y)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < 10)
+	i = -5;
+	while (i < 5)
 	{
-		j = 0;
-		while (j < 10)
+		j = -5;
+		while (j < 5)
 		{
 			my_mlx_pixel_put(img, x + j, y + i, 0x00FFFF00);
 			j++;
 		}
 		i++;
+	}
+}
+
+void	draw_vector_dir_tmp(t_img *img, t_player *p)
+{
+	int	i;
+	int	j;
+
+	i = -2;
+	while (i < 2)
+	{
+		j = -2;
+		while (j < 2)
+		{
+			//my_mlx_pixel_put(img, x + j, y + i, 0x00FF00FF);
+			j++;
+		}
+		i++;
+	}
+}
+void	draw_vector_dir(t_img *img, t_player *p)
+{
+	float	i;
+
+	i = 0;
+	while (i < 1)
+	{
+		my_mlx_pixel_put(img, p->p_x + (i * (cos(p->dir_angle) * 100)), p->p_y + (i * (sin(p->dir_angle) * 100)), 0x00FF00FF);
+		i += 0.01;
 	}
 }
 
