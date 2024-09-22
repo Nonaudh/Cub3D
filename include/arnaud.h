@@ -21,11 +21,11 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int	p_x;
-	int	p_y;
-	float dir_angle;
-	//float v_dir[2];
-
+	double	position[2];
+	double dir_angle;
+	double v_dir[2];
+	double v_plane[2];
+	int		fov;
 }	t_player;
 
 typedef struct s_mlx
@@ -42,19 +42,32 @@ typedef struct s_map
 	int		square_lenght;
 }	t_map;
 
+typedef struct s_ray
+{
+	double	ray_dir[2];
+	double	camera_x;
+}	t_ray;
+
 typedef struct s_cub
 {
 	t_mlx		mlx;
 	t_img		img;
 	t_player	player;
 	t_map		map;
+	t_ray		ray;
 }	t_cub;
 
 void	draw_map(t_img *img, t_map *map);
 void	set_screen_to_grey(t_img* img);
-void	draw_player(t_img *img, int x, int y);
-void	draw_vector_dir(t_img *img, t_player *p);
+void	draw_player(t_img *img, double pos[2]);
+void	draw_vector(t_img *img, double origin[2], double dir[2], int size);
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+void	move_player(t_player *p, int keysym, int size);
+
+void	rotate_angle(double *angle, double size);
+
+int raycasting(t_cub *c);
 
 #endif

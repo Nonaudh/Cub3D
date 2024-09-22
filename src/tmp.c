@@ -18,7 +18,7 @@ void	set_screen_to_grey(t_img* img)
 	}	
 }
 
-void	draw_player(t_img *img, int x, int y)
+void	draw_player(t_img *img, double pos[2])
 {
 	int	i;
 	int	j;
@@ -29,22 +29,22 @@ void	draw_player(t_img *img, int x, int y)
 		j = -5;
 		while (j < 5)
 		{
-			my_mlx_pixel_put(img, x + j, y + i, 0x00FFFF00);
+			my_mlx_pixel_put(img, pos[0] + j, pos[1] + i, 0x00FFFF00);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_vector_dir(t_img *img, t_player *p)
+void	draw_vector(t_img *img, double origin[2], double dir[2], int size)
 {
-	float	i;
+	int	i;
 
 	i = 0;
-	while (i < 1)
+	while (i < size)
 	{
-		my_mlx_pixel_put(img, p->p_x + (i * (cos(p->dir_angle) * 100)), p->p_y + (i * (sin(p->dir_angle) * 100)), 0x00FF00FF);
-		i += 0.01;
+		my_mlx_pixel_put(img, origin[0] + dir[0] * i, origin[1] + dir[1] * i, 0x00FF00FF);
+		i ++;
 	}
 }
 

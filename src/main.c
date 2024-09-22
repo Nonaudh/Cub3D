@@ -20,6 +20,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	draw_vector_pov(t_cub *c)
+{
+	draw_vector(&c->img, c->player.position, c->player.v_plane, 100);
+}
 
 int	draw_image(t_cub *c)
 {
@@ -29,9 +33,13 @@ int	draw_image(t_cub *c)
 
 	draw_map(&c->img, &c->map);
 
-	draw_player(&c->img, c->player.p_x, c->player.p_y);
+	draw_player(&c->img, c->player.position);
 
-	draw_vector_dir(&c->img, &c->player);
+	raycasting(c);
+
+	//draw_vector(&c->img, c->player.position, c->player.v_dir, 100);
+
+	//draw_vector_pov(c);
 
 	mlx_put_image_to_window(c->mlx.mlx, c->mlx.mlx_window, c->img.img, 0, 0);
 
@@ -46,26 +54,27 @@ int	handle_keypress(int keysym, t_cub *c)
 		mlx_destroy_window(c->mlx.mlx, c->mlx.mlx_window);
 		c->mlx.mlx_window = NULL;
 	}
-	if (keysym == XK_w && c->player.p_y > 0 + 5)
-		c->player.p_y -= 5;
-	if (keysym == XK_s && c->player.p_y <= WINDOW_HEIGHT - 5)
-		c->player.p_y += 5;
-	if (keysym == XK_a && c->player.p_x >= 0 + 5)
-		c->player.p_x -= 5;
-	if (keysym == XK_d && c->player.p_x <= WINDOW_WIDTH - 5)
-		c->player.p_x += 5;
+	if (keysym == XK_w && c->player.position[0] > 0 + 5)
+		move_player(&c->player, keysym, 5);
+
+	if (keysym == XK_s && c->player.position[0] <= WINDOW_HEIGHT - 5)
+		move_player(&c->player, keysym, 5);
+
+	if (keysym == XK_a && c->player.position[1] >= 0 + 5)	
+		move_player(&c->player, keysym, 5);
+
+	if (keysym == XK_d && c->player.position[1] <= WINDOW_WIDTH - 5)
+		move_player(&c->player, keysym, 5);
+
 	if (keysym == XK_Right)
-	{
-		c->player.dir_angle += 0.1;
-		if (c->player.dir_angle > 2 * PI)
-			c->player.dir_angle = 0;
-	}
+		rotate_angle(&c->player.dir_angle, 0.025 * PI);
 	if (keysym == XK_Left)
-	{
-		c->player.dir_angle -= 0.1;
-		if (c->player.dir_angle < 0)
-			c->player.dir_angle = 2 * PI;
-	}
+		rotate_angle(&c->player.dir_angle, - 0.025 * PI);
+	c->player.v_dir[0] = cos(c->player.dir_angle);
+	c->player.v_dir[1] = sin(c->player.dir_angle);
+
+	c->player.v_plane[0] = cos(c->player.dir_angle + PI * 0.2);
+	c->player.v_plane[1] = sin(c->player.dir_angle + PI * 0.2);
 	return (0);
 }
 
@@ -78,12 +87,21 @@ void	looping(t_cub *c)
 
 void	default_set_struct(t_cub *c)
 {
+	int	new_angle;
+
 	c->mlx.mlx = NULL;
 	c->mlx.mlx_window = NULL;
 	c->img.img = NULL;
-	c->player.p_x = 100;
-	c->player.p_y = 100;
+	c->player.position[0] = 100;
+	c->player.position[1] = 100;
 	c->player.dir_angle = 2 * PI;
+	c->player.v_dir[0] = cos(c->player.dir_angle);
+	c->player.v_dir[1] = sin(c->player.dir_angle);
+	printf("dir_x; %f\n", c->player.v_dir[0]);
+	printf("dir_y; %f\n", c->player.v_dir[1]);
+	c->player.fov = 30;
+	c->player.v_plane[0] = 0;
+	c->player.v_plane[1] = 0.66;
 }
 
 int	copy_map_into_struct(int map[10][10], t_map *m)

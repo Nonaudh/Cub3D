@@ -28,7 +28,7 @@ DMLX = mlx/
 
 MLX = $(DMLX)libmlx.a
 
-SRC = $(DSRC)main.c $(DSRC)tmp.c
+SRC = $(DSRC)main.c $(DSRC)tmp.c $(DSRC)movement.c $(DSRC)rotation.c $(DSRC)raycasting.c
 
 NAME = cube
 
