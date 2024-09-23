@@ -37,7 +37,7 @@ int	draw_image(t_cub *c)
 
 	raycasting(c);
 
-	//draw_vector(&c->img, c->player.position, c->player.v_dir, 100);
+	// draw_vector(&c->img, c->player.position, c->player.v_dir, 100);
 
 	//draw_vector_pov(c);
 
@@ -67,14 +67,14 @@ int	handle_keypress(int keysym, t_cub *c)
 		move_player(&c->player, keysym, 5);
 
 	if (keysym == XK_Right)
-		rotate_angle(&c->player.dir_angle, 0.025 * PI);
+		rotate_player(&c->player, 0.025 * PI);
 	if (keysym == XK_Left)
-		rotate_angle(&c->player.dir_angle, - 0.025 * PI);
-	c->player.v_dir[0] = cos(c->player.dir_angle);
-	c->player.v_dir[1] = sin(c->player.dir_angle);
+		rotate_player(&c->player, - 0.025 * PI);
+	// c->player.v_dir[0] = cos(c->player.dir_angle);
+	// c->player.v_dir[1] = sin(c->player.dir_angle);
 
-	c->player.v_plane[0] = cos(c->player.dir_angle + PI * 0.2);
-	c->player.v_plane[1] = sin(c->player.dir_angle + PI * 0.2);
+	// c->player.v_plane[0] = cos(c->player.dir_angle + PI * 0.2);
+	// c->player.v_plane[1] = sin(c->player.dir_angle + PI * 0.2);
 	return (0);
 }
 
@@ -92,13 +92,11 @@ void	default_set_struct(t_cub *c)
 	c->mlx.mlx = NULL;
 	c->mlx.mlx_window = NULL;
 	c->img.img = NULL;
-	c->player.position[0] = 100;
-	c->player.position[1] = 100;
+	c->player.position[0] = 2;
+	c->player.position[1] = 2;
 	c->player.dir_angle = 2 * PI;
 	c->player.v_dir[0] = cos(c->player.dir_angle);
 	c->player.v_dir[1] = sin(c->player.dir_angle);
-	printf("dir_x; %f\n", c->player.v_dir[0]);
-	printf("dir_y; %f\n", c->player.v_dir[1]);
 	c->player.fov = 30;
 	c->player.v_plane[0] = 0;
 	c->player.v_plane[1] = 0.66;

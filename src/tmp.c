@@ -22,6 +22,7 @@ void	draw_player(t_img *img, double pos[2])
 {
 	int	i;
 	int	j;
+	int	square_lenght = 60;
 
 	i = -5;
 	while (i < 5)
@@ -29,7 +30,7 @@ void	draw_player(t_img *img, double pos[2])
 		j = -5;
 		while (j < 5)
 		{
-			my_mlx_pixel_put(img, pos[0] + j, pos[1] + i, 0x00FFFF00);
+			my_mlx_pixel_put(img, (pos[0] * square_lenght) + j, (pos[1] * square_lenght) + i, 0x00FFFF00);
 			j++;
 		}
 		i++;

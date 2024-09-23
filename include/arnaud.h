@@ -46,6 +46,14 @@ typedef struct s_ray
 {
 	double	ray_dir[2];
 	double	camera_x;
+	int		map[2];
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		step_x;
+	int		step_y;
+	int		side;
 }	t_ray;
 
 typedef struct s_cub
@@ -64,9 +72,9 @@ void	draw_vector(t_img *img, double origin[2], double dir[2], int size);
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-void	move_player(t_player *p, int keysym, int size);
+void	move_player(t_player *p, int keysym, double size);
 
-void	rotate_angle(double *angle, double size);
+void	rotate_player(t_player *p, double size);
 
 int raycasting(t_cub *c);
 
