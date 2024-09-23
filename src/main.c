@@ -54,17 +54,17 @@ int	handle_keypress(int keysym, t_cub *c)
 		mlx_destroy_window(c->mlx.mlx, c->mlx.mlx_window);
 		c->mlx.mlx_window = NULL;
 	}
-	if (keysym == XK_w && c->player.position[0] > 0 + 5)
-		move_player(&c->player, keysym, 5);
+	if (keysym == XK_w)
+		move_player(&c->player, keysym, 0.083);
 
-	if (keysym == XK_s && c->player.position[0] <= WINDOW_HEIGHT - 5)
-		move_player(&c->player, keysym, 5);
+	if (keysym == XK_s)
+		move_player(&c->player, keysym, 0.083);
 
-	if (keysym == XK_a && c->player.position[1] >= 0 + 5)	
-		move_player(&c->player, keysym, 5);
+	if (keysym == XK_a)	
+		move_player(&c->player, keysym, 0.083);
 
-	if (keysym == XK_d && c->player.position[1] <= WINDOW_WIDTH - 5)
-		move_player(&c->player, keysym, 5);
+	if (keysym == XK_d)
+		move_player(&c->player, keysym, 0.083);
 
 	if (keysym == XK_Right)
 		rotate_player(&c->player, 0.025 * PI);
@@ -158,12 +158,12 @@ int	set_struct_map(t_cub *c)
 {
 	int map[10][10] ={	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 1, 0, 0, 1, 1, 1, 0, 1},
-						{1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
-						{1, 0, 0, 1, 1, 0, 1, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 						{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 	c->map.map_width = 10;

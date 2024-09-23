@@ -40,11 +40,12 @@ void	draw_player(t_img *img, double pos[2])
 void	draw_vector(t_img *img, double origin[2], double dir[2], int size)
 {
 	int	i;
+	int	square_lenght = 60;
 
 	i = 0;
 	while (i < size)
 	{
-		my_mlx_pixel_put(img, origin[0] + dir[0] * i, origin[1] + dir[1] * i, 0x00FF00FF);
+		my_mlx_pixel_put(img, (origin[0] * square_lenght) + dir[0] * i, (origin[1] * square_lenght) + dir[1] * i, 0x00FF00FF);
 		i ++;
 	}
 }

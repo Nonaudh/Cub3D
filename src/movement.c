@@ -34,7 +34,6 @@ void	move_player_left(t_player *p, double size)
 
 void	move_player(t_player *p, int keysym, double size)
 {
-	size = size / 60;
 	
 	if (keysym == XK_w)
 		move_player_forward(p, size);
