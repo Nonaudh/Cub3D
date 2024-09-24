@@ -56,6 +56,16 @@ typedef struct s_ray
 	int		side;
 }	t_ray;
 
+typedef struct s_line
+{
+	double	perp_wall_dist;
+	double	line_height;
+	double	draw_start;
+	double	draw_end;
+	int		celling_color;
+	int		floor_color;
+}	t_line;
+
 typedef struct s_cub
 {
 	t_mlx		mlx;
@@ -63,6 +73,7 @@ typedef struct s_cub
 	t_player	player;
 	t_map		map;
 	t_ray		ray;
+	t_line		line;
 }	t_cub;
 
 void	draw_map(t_img *img, t_map *map);
@@ -76,6 +87,8 @@ void	move_player(t_player *p, int keysym, double size);
 
 void	rotate_player(t_player *p, double size);
 
-int raycasting(t_cub *c);
+int		raycasting(t_cub *c);
+
+void	draw_line(t_cub *c, int x);
 
 #endif

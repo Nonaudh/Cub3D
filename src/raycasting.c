@@ -20,9 +20,8 @@ void	init_ray(t_cub *c, int x)
 {
 	reset_ray(&c->ray);
 	c->ray.camera_x = (2 * (x / (double)WINDOW_WIDTH)) - 1;
-	c->ray.camera_x = 0; //
-	c->ray.ray_dir[0] = c->player.v_dir[0];// + (c->player.v_plane[0] * c->ray.camera_x);
-	c->ray.ray_dir[1] =  c->player.v_dir[1];// + (c->player.v_plane[1] * c->ray.camera_x);
+	c->ray.ray_dir[0] = c->player.v_dir[0] + (c->player.v_plane[0] * c->ray.camera_x);
+	c->ray.ray_dir[1] =  c->player.v_dir[1] + (c->player.v_plane[1] * c->ray.camera_x);
 	// printf("ray_x; %f  ray_y; %f\n", c->ray.ray_dir[0], c->ray.ray_dir[1]);
 	c->ray.map[0] = (int)c->player.position[0];
 	c->ray.map[1] = (int)c->player.position[1];
@@ -75,17 +74,17 @@ void calculating_ray_size(t_cub *c)
 			c->ray.map[1] += c->ray.step_y;
 			c->ray.side = 1;			
 		}
-		if (c->map.map[c->ray.map[0]][c->ray.map[1]] == 1)
+		if (c->map.map[c->ray.map[1]][c->ray.map[0]] == 1)
 		{
-			printf("map_x; %d  map_y; %d  val; %d\n", c->ray.map[0], c->ray.map[1], c->map.map[c->ray.map[0]][c->ray.map[1]]);
+			// printf("map_x; %d  map_y; %d  val; %d\n", c->ray.map[1], c->ray.map[0], c->map.map[c->ray.map[0]][c->ray.map[1]]);
 			break;
 		}
 			
 	}
 	// if (c->ray.side == 0)
-	// 	printf("dist_x; %f  ", c->ray.side_dist_x);
+	// 	printf("dist_x; %f\n", c->ray.side_dist_x);
 	// else
-	// 	printf("dist_y; %f  ", c->ray.side_dist_y);
+	// 	printf("dist_y; %f\n", c->ray.side_dist_y);
 	// printf("map_x; %d  map_x; %d  val; %d\n", c->ray.map[0], c->ray.map[1], c->map.map[c->ray.map[0]][c->ray.map[1]]);	
 }
 
@@ -96,7 +95,7 @@ int raycasting(t_cub *c)
 
 	x = 0;
 	size = 0;
-	while (x < 1)//WINDOW_WIDTH)
+	while (x < WINDOW_WIDTH)
 	{
 		init_ray(c, x);
 		
@@ -104,12 +103,20 @@ int raycasting(t_cub *c)
 
 		calculating_ray_size(c);
 		// printf("side_x; %f  side_y; %f\n", c->ray.side_dist_x, c->ray.side_dist_y);
-		draw_vector(&c->img, c->player.position, c->ray.ray_dir, 100);
+		// draw_vector(&c->img, c->player.position, c->ray.ray_dir, 100);
 
-		// if (c->ray.side == 0)
-		// 	draw_vector(&c->img, c->player.position, c->ray.ray_dir, c->ray.side_dist_x);
-		// else
-		// 	draw_vector(&c->img, c->player.position, c->ray.ray_dir, c->ray.side_dist_y);
+		draw_line(c, x);
+
+		// if (c->ray.side == 0 && x == WINDOW_WIDTH / 2)
+		// {
+		// 	draw_vector(&c->img, c->player.position, c->ray.ray_dir, (c->ray.side_dist_x - c->ray.delta_dist_x) * 60);
+		// 	// printf("dist; %f\n", (c->ray.side_dist_x - c->ray.delta_dist_x));
+		// }
+		// else if (x == WINDOW_WIDTH / 2)
+		// {
+		// 	draw_vector(&c->img, c->player.position, c->ray.ray_dir, (c->ray.side_dist_y - c->ray.delta_dist_y)* 60);
+		// 	// printf("dist; %f\n", (c->ray.side_dist_x - c->ray.delta_dist_x));
+		// }
 		x++;
 	}
 	return (0);
