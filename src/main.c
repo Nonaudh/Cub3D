@@ -20,26 +20,18 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_vector_pov(t_cub *c)
-{
-	draw_vector(&c->img, c->player.position, c->player.v_plane, 100);
-}
 
 int	draw_image(t_cub *c)
 {
 	if (!c->mlx.mlx_window)
 		return (0);
-	set_screen_to_grey(&c->img);
+	// set_screen_to_grey(&c->img);
 
 	// draw_map(&c->img, &c->map);
 
 	// draw_player(&c->img, c->player.position);
 
 	raycasting(c);
-
-	// draw_vector(&c->img, c->player.position, c->player.v_dir, 100);
-
-	//draw_vector_pov(c);
 
 	mlx_put_image_to_window(c->mlx.mlx, c->mlx.mlx_window, c->img.img, 0, 0);
 
@@ -70,11 +62,6 @@ int	handle_keypress(int keysym, t_cub *c)
 		rotate_player(&c->player, 0.025 * PI);
 	if (keysym == XK_Left)
 		rotate_player(&c->player, - 0.025 * PI);
-	// c->player.v_dir[0] = cos(c->player.dir_angle);
-	// c->player.v_dir[1] = sin(c->player.dir_angle);
-
-	// c->player.v_plane[0] = cos(c->player.dir_angle + PI * 0.2);
-	// c->player.v_plane[1] = sin(c->player.dir_angle + PI * 0.2);
 	return (0);
 }
 
@@ -123,24 +110,6 @@ int	copy_map_into_struct(int map[10][10], t_map *m)
 	return (0);
 }
 
-void	print_map_struct(t_map *m) ///////
-{
-	int	i = 0;
-	int	j;
-
-	while (i < m->map_height)
-	{
-		j = 0;
-		while (j < m->map_width)
-		{
-			ft_printf("%d ", m->map[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-
 int	define_square_lenght(t_map *map)
 {
 	int	widht_lenght;
@@ -170,9 +139,6 @@ int	set_struct_map(t_cub *c)
 	c->map.map_height = 10;
 	c->map.square_lenght = define_square_lenght(&c->map);
 	copy_map_into_struct(map, &c->map);
-
-	// print_map_struct(&c->map);
-
 	return (0);
 }
 

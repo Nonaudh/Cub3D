@@ -1,14 +1,17 @@
 #ifndef ARNAUD_H
 # define ARNAUD_H
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define PI 3.1415926535
 
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdlib.h>
 # include <math.h>
+
+# include "raycasting.h"
+# include "draw_line.h"
 
 typedef struct s_img
 {
@@ -41,30 +44,6 @@ typedef struct s_map
 	int		map_height;
 	int		square_lenght;
 }	t_map;
-
-typedef struct s_ray
-{
-	double	ray_dir[2];
-	double	camera_x;
-	int		map[2];
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-}	t_ray;
-
-typedef struct s_line
-{
-	double	perp_wall_dist;
-	double	line_height;
-	double	draw_start;
-	double	draw_end;
-	int		celling_color;
-	int		floor_color;
-}	t_line;
 
 typedef struct s_cub
 {

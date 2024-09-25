@@ -52,6 +52,4 @@ void	draw_line(t_cub *c, int x)
 {
 	init_line(c);
 	pixel_line(c, x);
-	// if (x == WINDOW_WIDTH / 2)
-	// 	printf("perp; %f  start; %f  end; %f\n", c->line.perp_wall_dist, c->line.draw_start, c->line.draw_end);
 }
