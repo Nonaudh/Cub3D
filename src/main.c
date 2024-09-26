@@ -79,9 +79,9 @@ void	default_set_struct(t_cub *c)
 	c->mlx.mlx = NULL;
 	c->mlx.mlx_window = NULL;
 	c->img.img = NULL;
-	c->player.position[0] = 2;
-	c->player.position[1] = 2;
-	c->player.dir_angle = 2 * PI;
+	c->player.position[0] = 2.5;
+	c->player.position[1] = 2.5;
+	c->player.dir_angle = 0;
 	c->player.v_dir[0] = cos(c->player.dir_angle);
 	c->player.v_dir[1] = sin(c->player.dir_angle);
 	c->player.fov = 30;
@@ -127,10 +127,10 @@ int	set_struct_map(t_cub *c)
 {
 	int map[10][10] ={	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-						{1, 0, 1, 0, 1, 0, 0, 1, 0, 1},
-						{1, 0, 1, 0, 1, 0, 1, 1, 0, 1},
 						{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+						{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+						{1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
+						{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 						{1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
 						{1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 						{1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
