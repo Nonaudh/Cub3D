@@ -80,6 +80,7 @@ double	define_speed(int keysym)
 		printf("speed; %f\n", speed[KEY_W]);
 		return (speed[KEY_W]);
 	}
+	return (0);
 }
 
 void	move_player(t_player *p, t_map *m, int keysym, double speed)

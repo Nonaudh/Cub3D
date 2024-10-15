@@ -23,10 +23,12 @@ void	init_textures(t_data *data)
 	line->texture = init_tex_tab();
 	i = 0;
 
-	set_texture_img(data, &data->line->texture[0], data->map.no);
-	set_texture_img(data, &data->line->texture[1], data->map.so);
-	set_texture_img(data, &data->line->texture[2], data->map.we);
-	set_texture_img(data, &data->line->texture[3], data->map.ea);
+	set_texture_img(data, &data->line->texture[NORTH - 1], data->map.no);
+	set_texture_img(data, &data->line->texture[SOUTH - 1], data->map.so);
+	set_texture_img(data, &data->line->texture[EAST - 1], data->map.ea);
+	set_texture_img(data, &data->line->texture[WEST - 1], data->map.we);
+	set_texture_img(data, &data->line->texture[4], "textures/wood.xpm");
+	set_texture_img(data, &data->line->texture[5], "textures/colorstone.xpm");
 
 	// while (i < NB_OF_TEX)
 	// {
