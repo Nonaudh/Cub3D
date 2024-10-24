@@ -21,7 +21,8 @@ static int	functionTest(t_data *data) //TODO
 	raycasting(data);
 	if (data->mnmap->minimap)
 		draw_mnmap(data);
-	render_sprite(data);
+	if (data->arr_s)
+		render_sprite(data);
 	mlx_put_image_to_window(data->win->mlx_ptr,
 		data->win->win_ptr, data->img->img_ptr, 0, 0);
 	return (1);

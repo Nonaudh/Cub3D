@@ -120,6 +120,8 @@ bool	init_arr_sprites(t_data *data)
 
 	i = 0;
 	j = 0;
+	if (!data->map.sprite_nb)
+		return (true);
 	data->arr_s = (t_sprite **)ft_calloc(data->map.sprite_nb
 			+ 1, sizeof(t_sprite *));
 	if (!data->arr_s)
