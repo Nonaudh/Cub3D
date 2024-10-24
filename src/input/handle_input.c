@@ -26,9 +26,13 @@ void	handle_movement_and_rotation(t_data *data)
 	if (keyboard[KEY_D])
 		move_player(&data->player, &data->map, KEY_D, 0.08);
 	if (keyboard[KEY_RIGHT])
-		rotate_player(&data->player, MOUSE_SPEED);
+	{
+		printf("%f\n", MOUSE_SPEED * 0.1);
+		rotate_player(&data->player, MOUSE_SPEED * 0.1);
+	}
+		
 	if (keyboard[KEY_LEFT])
-		rotate_player(&data->player, -MOUSE_SPEED);
+		rotate_player(&data->player, -MOUSE_SPEED * 0.1);
 }
 
 void	check_y_axis(t_data *data, int y)
@@ -55,13 +59,21 @@ void	handle_mouse(t_data *data)
 {
 	int	x;
 	int	y;
+	double speed = 0;
 
 	mlx_mouse_get_pos(data->win->mlx_ptr, data->win->win_ptr, &x, &y);
-	if (!out_of_screen(x, y))
-	{
-		rotate_player(&data->player, MOUSE_SPEED * (x - M_W / 2) / 100);
+	// if (!out_of_screen(x, y))
+	// {
+	//	if (x > M_W * 0.5)
+			speed = MOUSE_SPEED * (x - M_W / 2) / 100;
+		if (speed)
+		{
+			printf("%f\n", speed);
+			rotate_player(&data->player, speed);
+		}
+
 		check_y_axis(data, y);
-	}
+	// }
 	mlx_mouse_move(data->win->mlx_ptr, data->win->win_ptr, M_W * 0.5, M_H * 0.5);
 }
 

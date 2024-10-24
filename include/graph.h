@@ -21,8 +21,8 @@
 # include "data.h"
 # include "sprite.h"
 
-# define M_W 1920
-# define M_H 1080
+# define M_W 800
+# define M_H 600
 # define M_NAME "cub3D"
 # define M_RED 84
 # define M_GREEN 122

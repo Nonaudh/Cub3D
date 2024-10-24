@@ -25,7 +25,7 @@
 # include <sys/time.h>
 # include <stdint.h>
 
-# define M_W 1920
+# define M_W 800
 
 typedef struct s_minimap	t_minimap;
 typedef struct s_img		t_img;
